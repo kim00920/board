@@ -15,7 +15,7 @@
 - CI / CD : Docker, Docker Hub
 
 # 프로젝트 아키텍쳐
-
+![Image](https://github.com/user-attachments/assets/15f01586-91a7-40da-8106-a680c00b258d)
 
 # API 설계
 
