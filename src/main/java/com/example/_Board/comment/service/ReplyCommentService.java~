@@ -1,0 +1,16 @@
+package com.example._Board.comment.service;
+
+import com.example._Board.comment.controller.request.ReplyCommentCreateRequest;
+import com.example._Board.comment.controller.request.ReplyCommentEditRequest;
+
+public interface ReplyCommentService {
+
+    // 리뷰 대댓글 생성
+    void ReplyCommentCreate(Long commentId, ReplyCommentCreateRequest request);
+
+    // 리뷰 대댓글 수정
+    void ReplyCommentEdit(Long replyCommentId, ReplyCommentEditRequest request);
+
+    // 리뷰 대댓글 삭제
+    void ReplyCommentDelete(Long replyCommentId);
+}
