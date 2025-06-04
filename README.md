@@ -1,5 +1,6 @@
-# **Board**
+# 프로젝트 소개
 - Spring Boot 기반 게시글 REST API 입니다
+- Spring Boot + JPA 로 구현했습니다.
 - 개발 기간 : 25.04.11 ~ 25.04.30
 - 참여 인원 : 1명
 
@@ -14,10 +15,44 @@
 - Server : AWS EC2, Linux
 - CI / CD : Docker, Docker Hub
 
+
+# ERD
+<img src="https://github.com/user-attachments/assets/3f6d3aba-6ce7-4f95-868c-50837a9353fd"/>
+<img src="https://github.com/user-attachments/assets/ec176a48-4031-43fd-9e33-cf159921642a"/>
+
+
 # 프로젝트 아키텍쳐
+<img src="https://github.com/user-attachments/assets/15f01586-91a7-40da-8106-a680c00b258d" width="650" height="330"/>
 
 
 # API 설계
+
+- 회원<br>
+<img src="https://github.com/user-attachments/assets/a402e034-f088-4def-8174-c14a2b010d5f"/>
+
+
+- 게시글<br>
+  <img src="https://github.com/user-attachments/assets/4bc8b2b1-4fef-40ca-82b2-c684bbba42a7"/>
+
+
+- 댓글<br>
+  <img src="https://github.com/user-attachments/assets/349bb5a8-a5e7-4147-9896-00186b245b9e"/>
+
+
+- 대댓글<br>
+  <img src="https://github.com/user-attachments/assets/d7f505a0-486f-47a6-bf6c-99021d8e5470"/>
+
+
+- 카테고리<br>
+  <img src="https://github.com/user-attachments/assets/58bccfec-3635-414a-9147-67952298809d"/>
+
+
+- 좋아요<br>
+  <img src="https://github.com/user-attachments/assets/102b7c12-85c9-4f0c-85db-2bbddbd9bbbf"/>
+
+
+- 탈퇴회원<br>
+  <img src="https://github.com/user-attachments/assets/fcbcfde5-c952-40e7-8333-8ba634035c15"/>
 
 
 # 프로젝트 구조
