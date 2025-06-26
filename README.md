@@ -8,7 +8,7 @@
 - Language : Java
 - JDK : 17
 - Framework : Spring 6.2.5 , SpringBoot 3.4.4
-- Library :  Spring Security, Query DSL
+- Library :  Spring Security 6.4.4, Query DSL 5.1.0
 - BuildTool : Gradle
 - DB : MySQL
 - File : AWS S3
