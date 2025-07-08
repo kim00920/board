@@ -19,13 +19,14 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 @Configuration
+
 public class SecurityConfig {
 
 
-    private final UserService UserService;
+    private final UserService userService;
 
     public SecurityConfig(@Lazy UserService UserService) { // 안붙이니까 순환 의존성이 발생함
-        this.UserService = UserService;
+        this.userService = UserService;
     }
 
 
@@ -49,6 +50,13 @@ public class SecurityConfig {
                 .build();
     }
 
+    @Bean
+    public AuthenticationManager authenticationManager() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return new ProviderManager(authProvider);
+    }
 
 
     @Bean

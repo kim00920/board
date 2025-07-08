@@ -45,7 +45,7 @@ public class User extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @Builder.Default
-    private List<Board> boards = new ArrayList<>();
+    private List<Board> boards = new ArrayList<>(); // 특정 유저가 작성한 게시글 전체 조회
 
 
     // 회원 생성

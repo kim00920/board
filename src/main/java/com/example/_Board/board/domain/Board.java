@@ -70,7 +70,7 @@ public class Board extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    private Category category; // 카테고리
+    private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -127,5 +127,12 @@ public class Board extends BaseTimeEntity {
         this.likeCount--;
     }
 
+
+    public void setUser(User user) {
+        this.user = user;
+        if (!user.getBoards().contains(this)) {
+            user.getBoards().add(this);
+        }
+    }
 }
 

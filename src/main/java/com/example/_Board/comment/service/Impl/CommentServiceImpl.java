@@ -48,6 +48,10 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.flush();
 
 
+
+        // 댓글 테이블 조회 쿼리가 발생, 게시글에 있는 모든 댓글 가져오기
+        // log.info("board.getComments() 테스트 : {}", board.getComments());
+
         long commentCount = commentRepository.commentCount(boardId);
         boardRepository.updateCommentCount(boardId, commentCount);
 
