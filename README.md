@@ -5,16 +5,16 @@
 - 참여 인원 : 1명
 
 # 기술 스택
-- Language : Java
-- JDK : 17
+- Language : Java 17
 - Framework : Spring 6.2.5 , SpringBoot 3.4.4
-- Library :  Spring Security 6.4.4, Query DSL 5.1.0
+- Library :  Spring Security 6.4.4 (세션), Query DSL 5.1.0
 - BuildTool : Gradle
-- DB : MySQL
+- DB : MySQL 
 - File : AWS S3
 - Server : AWS EC2, Linux
-- CI / CD : Docker, Docker Hub
-
+- CI / CD : Docker, Docker Compose
+- TestTool: Postman, Apache JMeter 
+- Message Queue : RabbitMQ 4.1.1
 
 # ERD
 <img src="https://github.com/user-attachments/assets/3f6d3aba-6ce7-4f95-868c-50837a9353fd"/><br>
@@ -53,6 +53,7 @@
 
 - 탈퇴회원<br>
   <img src="https://github.com/user-attachments/assets/fcbcfde5-c952-40e7-8333-8ba634035c15"/><br>
+
 
 
 # 프로젝트 구조
@@ -147,8 +148,20 @@
 
 </details>
 
+<details>
+<summary>알림(Notification)</summary>
+
+- 알림 전체 조회<br>
+- 회원이 읽지 않는 알림 개수 조회<br>
+- 알림 읽음 처리<br>
+- 알림 삭제<br>
+
+++ 어떤 게시글에 좋아요를 누르면 그 작성자 회원에게 좋아요를 눌렀다는 알림이 생성<br>
+++ 알림은 송신자 id, 수신자 id, 수신자의 게시글 id 를 갖고있으며, 같은 회원의 중복 알림 생성을 방지<br> 
+</details>
+
 # 테스트 진행
-Mockito + Junit5 을 통해서 단위테스트로 진행했습니다.
+Mockito + Junit5 을 사용하여 단위테스트로 진행했습니다.
 
 <details>
 <summary>테스트</summary>
@@ -187,6 +200,8 @@ Mockito + Junit5 을 통해서 단위테스트로 진행했습니다.
 
   <img src="https://github.com/user-attachments/assets/d118e2d4-df48-4ecb-92a9-c62065125099"/><br>
 
+- 알림(Notification)<br>
+  <img src="https://github.com/user-attachments/assets/c8af7841-a71d-45c7-bfe0-ae710d4d4a2a"/><br>
 </details>
 
 # 트러블 슈팅 및 성능 개선

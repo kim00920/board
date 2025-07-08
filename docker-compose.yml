@@ -17,6 +17,19 @@ services:
       - "--collation-server=utf8mb4_unicode_ci"
     networks:
       - board_network
+      -
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.12-management
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - board_network
 
   application:
     container_name: docker-compose-test
