@@ -74,7 +74,6 @@ public class NotificationImpl implements NotificationService {
         User receiver = userRepository.findById(receiverId)
                 .orElseThrow(() -> new BusinessException(NOT_FOUND_USER));
 
-
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new BusinessException(NOT_FOUND_BOARD));
 
@@ -83,7 +82,6 @@ public class NotificationImpl implements NotificationService {
             log.info("중복된 회원이므로 알림생성은 안됨");
             return;
         }
-
 
         Notification notification = Notification.builder()
                 .sender(sender)

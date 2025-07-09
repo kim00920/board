@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 public class LikeNotificationMessage {
-    private Long userId;
+    private Long senderId;
     private Long boardId;
     private Long receiverId;
 }

@@ -31,7 +31,7 @@ public class Notification {
     private Board board;
 
     @Column(nullable = false)
-    private String message; // "User A가 당신의 게시글에 좋아요를 눌렀습니다."
+    private String message;
 
     private boolean alreadyRead;  // 읽음 여부
 

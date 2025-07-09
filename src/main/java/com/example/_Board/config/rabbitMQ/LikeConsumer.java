@@ -32,22 +32,19 @@ public class LikeConsumer {
             // 자바로 역직렬화
             LikeNotificationMessage message = objectMapper.readValue(messageJson, LikeNotificationMessage.class);
 
-            Long senderId = message.getUserId();
-            Long boardId = message.getBoardId();
-            Long receiverId = message.getReceiverId();
 
-            User sender = userRepository.findById(senderId)
+            User sender = userRepository.findById(message.getSenderId())
                     .orElseThrow(() -> new BusinessException(NOT_FOUND_USER));
 
-            User receiver = userRepository.findById(receiverId)
+            User receiver = userRepository.findById(message.getReceiverId())
                     .orElseThrow(() -> new BusinessException(NOT_FOUND_USER));
 
-            Board board = boardRepository.findById(boardId)
+            Board board = boardRepository.findById(message.getReceiverId())
                     .orElseThrow(() -> new BusinessException(NOT_FOUND_BOARD));
 
             // 알림 메세지
             String alert = sender.getName() + " 님이 회원님의 게시글(" + board.getId() + "번)에 좋아요를 눌렀습니다.";
-            notificationService.notificationCreate(senderId, receiverId, boardId, alert);
+            notificationService.notificationCreate(sender.getId(), receiver.getId(), board.getId(), alert);
 
             log.info("송신자: {}", sender.getName());
             log.info("수신자: {}", receiver.getName());

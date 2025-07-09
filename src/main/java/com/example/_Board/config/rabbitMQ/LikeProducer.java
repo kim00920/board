@@ -19,11 +19,11 @@ public class LikeProducer {
     private static final String EXCHANGE_NAME = "like-exchange";
     private static final String ROUTING_KEY = "like.notification";
 
-    public void sendLikeNotification(Long boardId, Long userId, Long receiverId) {
+    public void sendLikeNotification(Long boardId, Long senderId, Long receiverId) {
 
         LikeNotificationMessage message = LikeNotificationMessage.builder()
                 .boardId(boardId)
-                .userId(userId)
+                .senderId(senderId)
                 .receiverId(receiverId)
                 .build();
 
@@ -32,7 +32,7 @@ public class LikeProducer {
             rabbitTemplate.convertAndSend(EXCHANGE_NAME, ROUTING_KEY, jsonMessage);
             log.info("convertAndSend 성공");
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("JSON 직렬화 실패", e);
+            throw new RuntimeException("JSON 직렬화 실패함", e);
         }
     }
 }

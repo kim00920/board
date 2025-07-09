@@ -17,12 +17,12 @@
 - Message Queue : RabbitMQ 4.1.1
 
 # ERD
-<img src="https://github.com/user-attachments/assets/3f6d3aba-6ce7-4f95-868c-50837a9353fd"/><br>
-<img src="https://github.com/user-attachments/assets/ec176a48-4031-43fd-9e33-cf159921642a"/><br>
+<img src="https://github.com/user-attachments/assets/96a4da24-e94b-438d-8972-56806e840de4"/><br>
+<img src="https://github.com/user-attachments/assets/99ea12ad-ea05-49d6-bb1d-7c7cb4bced8a"/><br>
 
 
 # 프로젝트 아키텍쳐
-<img src="https://github.com/user-attachments/assets/15f01586-91a7-40da-8106-a680c00b258d" width="550" height="300"/>
+<img src="https://github.com/user-attachments/assets/15f01586-91a7-40da-8106-a680c00b258d"/>
 
 
 # API 설계
@@ -54,6 +54,8 @@
 - 탈퇴회원<br>
   <img src="https://github.com/user-attachments/assets/fcbcfde5-c952-40e7-8333-8ba634035c15"/><br>
 
+- 알림<br>
+  <img src="https://github.com/user-attachments/assets/6360d74c-20a3-4886-a325-4f2598a0b419"/><br>
 
 
 # 프로젝트 구조
@@ -155,8 +157,8 @@
 - 회원이 읽지 않는 알림 개수 조회<br>
 - 알림 읽음 처리<br>
 - 알림 삭제<br>
-
-++ 어떤 게시글에 좋아요를 누르면 그 작성자 회원에게 좋아요를 눌렀다는 알림이 생성<br>
+ 
+++ 어떤 게시글에 좋아요를 누르면 그 작성자 회원에게 좋아요를 눌렀다는 알림메세지가 rabbitMQ 의 exchange , 라우팅 키 값을 통해 @RabbitListener 에서 알림 메세지를 생성한다<br>
 ++ 알림은 송신자 id, 수신자 id, 수신자의 게시글 id 를 갖고있으며, 같은 회원의 중복 알림 생성을 방지<br> 
 </details>
 
@@ -204,9 +206,10 @@ Mockito + Junit5 을 사용하여 단위테스트로 진행했습니다.
   <img src="https://github.com/user-attachments/assets/c8af7841-a71d-45c7-bfe0-ae710d4d4a2a"/><br>
 </details>
 
+
 # 트러블 슈팅 및 성능 개선
 
-- request 와 response 에서 Entity 를 사용하게 되면 해당 Entity에 존재하는 모든 필드값이 반환되기 때문에 불필요하다고 판단됐습니다.  <br>
+- request 와 response 에서 Entity 를 사용하게 되면 해당 Entity 에 존재하는 모든 필드값이 반환되기 때문에 불필요하다고 판단됐습니다.  <br>
 → 필요한 필드만 갖고있는 DTO 를 만들어서 리팩토링했습니다.
 
   
@@ -230,3 +233,59 @@ Mockito + Junit5 을 사용하여 단위테스트로 진행했습니다.
 
 ### [N + 1, 인덱스 해결과정 및 테스트 과정](https://kim00920.tistory.com/4)  
 ### [트랜잭션 해결과정 및 테스트 과정](https://kim00920.tistory.com/5)
+
+<details>
+<summary>추가 기능 구현(알림)</summary>
+
+# 추가 기능 구현(07-08 갱신)
+- 어떤 회원이 게시글에 좋아요를 눌렀을떄 게시글 작성자에게 게시글 좋아요를 눌렀다는 알림 메세지를 구현하고 싶었다
+
+알림 기능을 구현하기 위해서 생각한 방법은 다음과 같다<br>
+
+1. 스프링 AOP 에 있는 @Async 를 통해서 구현<br>
+   장점 : 로컬에서도 쉽게 구현 및 처리가 가능하다<br>
+   단점 : 로컬에서만 작동하기 때문에 확장성이 낮다, 장애가 발생했을떄 장애 복구가 힘들다<br><br>
+
+2. Kafka 를 사용한다<br>
+   장점 : 대용량 데이터에 처리에 능하며, 서비스 간 결합도를 최소화<br>
+   단점 : 간단한 알림 메시지 시스템에는 너무 과한 선택이다<br><br>
+
+3. RabbitMQ 를 사용한다<br>
+   장점 : ACK 기반이므로 신뢰성있는 메시지 전송, Spring AMQP 를 통해 기존 프로젝트의 구조를 꺠지않으면서 사용가능<br>
+   단점 : Kafka 에 비해 대용량처리에는 한계가 있지만, 게시글같이 단순 알림 메시지에는 적합 할 거라 생각<br>
+
+→  RabbitMQ를 사용하기로 결정했다<br>
+
+## 알림(Notification) 생성 및 처리과정
+좋아요를 누른 회원(송신자)이 보낸 알림 메시지를 게시글 주인(송신자) 이 받는 기능을 만들거기 떄문에 다음과 같이 생성했다<br>
+<img src="https://github.com/user-attachments/assets/30561998-9635-4b62-b6b4-30b95071f991"/><br>
+
+1. 작성글 회원은 다른 회원이 좋아요를 누를떄마다 알림 메세지를 받게된다<br>
+→ 이떄 알림 메시지를 만들때는 (송신자 id, 수신자 id, 수신자 게시글 id) 파라미터로 받게된다<br>
+
+2. 이후 Rabbit MQ 빈 등록에서 설정한 경로로 convertAndSend(exchange, 라우팅 키, 알림 메시지 (json 직렬화)) 를 통해 큐 저장소에 저장되게된다<br>
+<img src="https://github.com/user-attachments/assets/424f2ce7-f747-4a8c-b56d-e40e2471f96a"/><br>
+
+3. 큐에 저장된 알림 메시지는 @RabbitListener 에서 꺼내오고, 아까 json 으로 받은 데이터를 객체로 역직렬화 후, Notification 을 저장한다<br>
+<img src="https://github.com/user-attachments/assets/1ed16db6-617b-4edd-a592-981b6ba83647"/><br>
+
+4. 만약에 송신자가 좋아요를 누르고 다시 취소하고를 반복하면 알림이 계속해서 갈 경우를 염려하여, (송신자 id, 수신자 id, 수신자 게시글 id) 가 DB 상에 존재할떄 return; 으로했다<br>
+→ 그리고 기본적으로 생성된 알림 메시지의 읽은 여부는 false 로 하고 수신자가 그 알림을 눌렀을떄 읽음 처리(true) 로 바뀌게 구현했다<br>
+<img src="https://github.com/user-attachments/assets/6fbd9917-9fa8-4984-bf35-8cdba24b0a07"/><br><br>
+
+
+## 실제 동작
+1. 읽지 않는 알림 갱신 및 전체 조회<br>
+![Image](https://github.com/user-attachments/assets/dd7483c0-1ffb-4fc5-ae9a-58f7c425a9da)<br>
+
+2. 알림을 누르면 읽음 처리 및 갱신<br>
+![Image](https://github.com/user-attachments/assets/450b70b8-189f-4307-96a2-27ad61e9acc8)<br>
+
+3. 알림 삭제<br>
+![Image](https://github.com/user-attachments/assets/2310e5c3-cb07-4c95-b759-43e80ee6732d)<br>
+
+
+## 개선할 점 또는 추가할기능
+
+
+</details>

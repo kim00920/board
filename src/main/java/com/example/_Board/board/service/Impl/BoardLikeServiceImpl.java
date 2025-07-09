@@ -51,7 +51,7 @@ public class BoardLikeServiceImpl implements BoardLikeService {
 
         boardLikeRepository.save(boardLike);
 
-        likeProducer.sendLikeNotification(boardId, user.getId(), board.getUser().getId());
+        likeProducer.sendLikeNotification(board.getId(), user.getId(), board.getUser().getId()); // 이떄 알림 메시지 생성
     }
 
     // 좋아요 취소
