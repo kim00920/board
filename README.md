@@ -209,20 +209,20 @@ Mockito + Junit5 을 사용하여 단위테스트로 진행했습니다.
 
 # 트러블 슈팅 및 성능 개선
 
-- request 와 response 에서 Entity 를 사용하게 되면 해당 Entity 에 존재하는 모든 필드값이 반환되기 때문에 불필요하다고 판단됐습니다.  <br>
-→ 필요한 필드만 갖고있는 DTO 를 만들어서 리팩토링했습니다.
+- request 와 response 에서 Entity 를 사용하게 되면 해당 Entity 에 존재하는 모든 필드값이 반환되기 때문에 불필요하다고 판단<br>
+→ 필요한 필드만 갖고있는 DTO 를 만들어서 리팩토링<br>
 
   
 
-- 댓글 조회 시 N + 1 문제  
+- 댓글 조회 시 N + 1 문제 <br>
 사용자가 특정 게시글의 댓글을 전체 조회 시, 댓글 N개 와 회원 M개를 조회하는 쿼리가 발생  <br>
-→ @BatchSize 와 FetchJoin 을 통해서 N + 1 문제를 해결하였고, 더미 데이터 와 Apache JMeter 를 통해 성능테스트를 진행했습니다.<br>
+→ @BatchSize 와 FetchJoin 을 통해서 N + 1 문제를 해결하였고, 더미 데이터 와 Apache JMeter 를 통해 성능테스트를 진행<br>
 
 
   
 - 조회수 / 좋아요 기준 게시글 정렬 시 발생한 Full Table Scan 문제  <br>
 사용자가 일반 게시글(isNotice = 0)을 조회수(viewCount) 또는 좋아요 수(likeCount) 기준으로 정렬 조회할 때 Full Table Scan 이 발생  <br>
-→ (isNotice, viewCount), (isNotice, likeCount) 복합 인덱스를 설정하여 조회 성능을 개선했습니다.<br>
+→ (isNotice, viewCount), (isNotice, likeCount) 복합 인덱스를 설정하여 조회 성능을 개선<br>
 
 
   
@@ -284,8 +284,5 @@ Mockito + Junit5 을 사용하여 단위테스트로 진행했습니다.
 3. 알림 삭제<br>
 ![Image](https://github.com/user-attachments/assets/2310e5c3-cb07-4c95-b759-43e80ee6732d)<br>
 
-
-## 개선할 점 또는 추가할기능
-
-
+   
 </details>

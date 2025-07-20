@@ -32,8 +32,8 @@ public class CommentResponse {
         this.userName = comment.getUser().getName();
         this.boardId = comment.getBoard().getId();
         this.comment = comment.getComment();
-        this.replyResponse = comment.getReplyComments() // n + 1 발생 부분
-                .stream()
+        this.replyResponse = comment.getReplyComments() // 프록시 객체임
+                .stream() // 이떄 n + 1 발생 부분
                 .map(ReplyCommentResponse::new).collect(Collectors.toList());
     }
 

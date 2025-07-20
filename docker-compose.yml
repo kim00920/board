@@ -17,7 +17,7 @@ services:
       - "--collation-server=utf8mb4_unicode_ci"
     networks:
       - board_network
-      -
+
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq:3.12-management
