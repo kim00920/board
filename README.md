@@ -2,7 +2,10 @@
 - Spring Boot 기반 게시글 REST API 입니다
 - Spring Boot + JPA 로 구현했습니다.
 - 개발 기간 : 25.04.11 ~ 25.04.30
-- 참여 인원 : 1명
+- 참여 인원 : 1명<br><br>
+
+
+### [구현](https://github.com/kim00920/boardJSP)<br>
 
 # 기술 스택
 - Language : Java 17
@@ -22,7 +25,7 @@
 
 
 # 프로젝트 아키텍쳐
-<img src="https://github.com/user-attachments/assets/15f01586-91a7-40da-8106-a680c00b258d"/>
+<img src="https://github.com/user-attachments/assets/5dff28b4-fa2e-4f81-8577-91dd6e608d6f"/>
 
 
 # API 설계
@@ -53,6 +56,7 @@
 
 - 탈퇴회원<br>
   <img src="https://github.com/user-attachments/assets/fcbcfde5-c952-40e7-8333-8ba634035c15"/><br>
+
 
 - 알림<br>
   <img src="https://github.com/user-attachments/assets/6360d74c-20a3-4886-a325-4f2598a0b419"/><br>
@@ -274,7 +278,7 @@ Mockito + Junit5 을 사용하여 단위테스트로 진행했습니다.
 <img src="https://github.com/user-attachments/assets/6fbd9917-9fa8-4984-bf35-8cdba24b0a07"/><br><br>
 
 
-## 실제 동작
+## 알림 API 흐름
 1. 읽지 않는 알림 갱신 및 전체 조회<br>
 ![Image](https://github.com/user-attachments/assets/dd7483c0-1ffb-4fc5-ae9a-58f7c425a9da)<br>
 
