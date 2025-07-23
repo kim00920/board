@@ -2,10 +2,8 @@
 - Spring Boot 기반 게시글 REST API 입니다
 - Spring Boot + JPA 로 구현했습니다.
 - 개발 기간 : 25.04.11 ~ 25.04.30
-- 참여 인원 : 1명<br><br>
-
-
-### [구현](https://github.com/kim00920/boardJSP)<br>
+- 참여 인원 : 1명
+- ### [프론트 구현](https://github.com/kim00920/boardJSP)
 
 # 기술 스택
 - Language : Java 17
