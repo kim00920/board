@@ -23,8 +23,7 @@
 
 
 # 프로젝트 아키텍쳐
-<img src="https://github.com/user-attachments/assets/5dff28b4-fa2e-4f81-8577-91dd6e608d6f"/>
-
+<img src="https://github.com/user-attachments/assets/18f09049-fd95-4557-a2c5-595bf4d0ed6f"/>
 
 # API 설계
 
@@ -61,7 +60,8 @@
 
 
 # 프로젝트 구조
-  <img src="https://github.com/user-attachments/assets/0052d5ee-0bcb-475b-af1d-ce1e15178269"/><br>
+<img src="https://github.com/user-attachments/assets/5dff28b4-fa2e-4f81-8577-91dd6e608d6f"/><br>
+
 
 # 프로젝트 기능
 <details>
